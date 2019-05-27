@@ -10,6 +10,12 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,9 +26,34 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayout"
+    implementation "com.android.support:design:$rootProject.supportLibVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaLibrary"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxJavaAndroid"
+    implementation "android.arch.paging:runtime:$rootProject.pagingLibrary"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitLibrary"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.gsonLibrary"
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+    implementation "android.arch.lifecycle:viewmodel:$rootProject.archLifecycleVersion"
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoCore"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideLibrary"
+    implementation "android.arch.persistence.room:runtime:$rootProject.archRoomVersion"
+    annotationProcessor  "android.arch.persistence.room:compiler:$rootProject.archRoomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.archRoomVersion"
+    androidTestImplementation "android.arch.core:core-testing:1.1.0"
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "junit:junit:$rootProject.junit"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.testRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoCore"
+    testImplementation("com.squareup.okhttp3:mockwebserver:$rootProject.mockServer")
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideLibrary"
+    androidTestImplementation "org.mockito:mockito-android:$rootProject.mockitoLibrary"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoLibrary"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.testRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoCore"
 }
