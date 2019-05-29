@@ -11,6 +11,10 @@ import com.movieapp.pokemonapp.model.Result;
 
 import static com.movieapp.pokemonapp.data.ResultDataSource.PAGE_LIMIT;
 
+/**
+ *
+ * This is the viewmodel which prepares data for the view.
+ */
 public class PokemonViewModel extends ViewModel {
 
     public LiveData<PagedList<Result>> resultPagedList;

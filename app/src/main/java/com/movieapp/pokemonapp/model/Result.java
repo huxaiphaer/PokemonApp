@@ -1,30 +1,21 @@
-
 package com.movieapp.pokemonapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-@SuppressWarnings("unused")
 public class Result {
 
     @SerializedName("name")
-    private String mName;
+    public String mName;
     @SerializedName("url")
-    private String mUrl;
+    public String mUrl;
 
-    public String getName() {
-        return mName;
+    /**
+     * This method helps to get the ID of each pokemon.
+     * @return
+     */
+    public int getId() {
+
+        String[] urlPattern = mUrl.split("/");
+        return Integer.parseInt(urlPattern[urlPattern.length - 1]);
     }
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public String getUrl() {
-        return mUrl;
-    }
-
-    public void setUrl(String url) {
-        mUrl = url;
-    }
-
 }

@@ -8,8 +8,13 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    @GET("/api/v2/pokemon/")
+    /**
+     * This is the API call to a specific endpoint.
+     * @param limit This is the limit of the page.
+     * @param offset This is the offset.
+     * @return
+     */
+    @GET("/api/v2/pokemon")
     Call<PokemonApiResponse> getPokemons(@Query("limit") int limit,
-                                         @Query("offset") int Offset);
-
+                                         @Query("offset") int offset);
 }
