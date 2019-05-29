@@ -6,14 +6,19 @@ import android.arch.paging.PageKeyedDataSource;
 
 import com.movieapp.pokemonapp.model.Result;
 
-public class ResultDataSourceFactory extends DataSource.Factory{
+/**
+ * This is the data source factory ,
+ * where the paginated data is collected.
+ */
+public class ResultDataSourceFactory extends DataSource.Factory {
 
-    private MutableLiveData<PageKeyedDataSource<Integer,Result>> resultLiveDataSource = new MutableLiveData<>();
+    private MutableLiveData<PageKeyedDataSource<Integer, Result>> resultLiveDataSource = new MutableLiveData<>();
 
     @Override
     public DataSource create() {
 
         ResultDataSource resultDataSource = new ResultDataSource();
+
         resultLiveDataSource.postValue(resultDataSource);
         return resultDataSource;
     }

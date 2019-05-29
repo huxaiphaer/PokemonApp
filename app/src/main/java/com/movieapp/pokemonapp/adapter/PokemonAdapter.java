@@ -2,29 +2,37 @@ package com.movieapp.pokemonapp.adapter;
 
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.movieapp.pokemonapp.R;
 import com.movieapp.pokemonapp.model.Result;
 import com.movieapp.pokemonapp.utils.Utils;
 
-import java.util.ArrayList;
-
 public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.PokemonHolder> {
-
 
     private static DiffUtil.ItemCallback<Result> DIFF_CALLBACK = new DiffUtil.ItemCallback<Result>() {
         @Override
         public boolean areItemsTheSame(@NonNull Result oldResult, @NonNull Result newResult) {
-            return oldResult.getUrl() == newResult.getUrl();
+
+            String[] oldUrlPattern = oldResult.mUrl.split("/");
+            String[] newUrlPatter = newResult.mUrl.split("/");
+            return Integer.parseInt(oldUrlPattern[oldUrlPattern.length - 1]) == Integer.parseInt(newUrlPatter[newUrlPatter.length - 1]);
         }
 
         @Override
@@ -32,15 +40,19 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
             return oldResult.equals(newResult);
         }
     };
-    private ArrayList<Result> resultList;
     private Context context;
-
 
     public PokemonAdapter(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
     }
 
+    /***
+     * This methods creates the viewholder with respect to the item layout.
+     * @param viewGroup
+     * @param i
+     * @return
+     */
     @NonNull
     @Override
     public PokemonHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -49,31 +61,64 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
         return new PokemonHolder(layoutView);
     }
 
+    /**
+     * This is where the binding of the views occurs.
+     *
+     * @param pokemonHolder This allows to access views in the holder class.
+     * @param i This is the item position
+     */
     @Override
     public void onBindViewHolder(@NonNull PokemonHolder pokemonHolder, int i) {
 
-        final Result result = resultList.get(i);
-        final String pokemonName = result.getName();
-        pokemonHolder.pokemonName.setText(pokemonName);
+        final Result result = getItem(i);
 
-        Glide.with(context)
-                .load(Utils.IMAGE_BASE_URL.concat("1.png"))
-                .into(pokemonHolder.pokemonImg);
+        if (result != null) {
+            final String pokemonName = result.mName;
+            pokemonHolder.pokemonName.setText(pokemonName);
+
+            Glide.with(PokemonAdapter.this.context)
+                    .load(Utils.IMAGE_BASE_URL.concat(result.getId() + ".png"))
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+
+                            pokemonHolder.imageLoader_pb.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            pokemonHolder.imageLoader_pb.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .into(pokemonHolder.pokemonImg);
+
+        } else {
+            Toast.makeText(PokemonAdapter.this.context, "Check your internet connection", Toast.LENGTH_LONG).show();
+        }
 
     }
 
-    static final class PokemonHolder extends RecyclerView.ViewHolder {
+    class PokemonHolder extends RecyclerView.ViewHolder {
 
-        private View root;
-        private ImageView pokemonImg;
-        private TextView pokemonName;
+        View root;
+        ImageView pokemonImg;
+        TextView pokemonName;
+        ProgressBar imageLoader_pb;
 
+        /**
+         * Holder Constructor to initialize the views.
+         *
+         * @param itemView
+         */
         public PokemonHolder(@NonNull View itemView) {
             super(itemView);
 
             root = itemView;
             pokemonImg = itemView.findViewById(R.id.pokemonImg);
             pokemonName = itemView.findViewById(R.id.pokemonName);
+            imageLoader_pb = itemView.findViewById(R.id.imageLoader_pb);
         }
     }
 }
