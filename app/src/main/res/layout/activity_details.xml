@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:padding="6dp"
+        android:layout_margin="@dimen/card_view_details_margin"
+        android:padding="@dimen/card_view_details_padding"
         app:cardCornerRadius="@dimen/item_card_view_corner_radius"
-        app:cardElevation="6dp">
+        app:cardElevation="@dimen/card_view_details_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="7dp"
+            android:layout_margin="@dimen/linearlayout_details_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -32,20 +32,21 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/details_img"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="@dimen/details_image_height"
+                        android:layout_height="@dimen/details_image_width"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center"
                         app:civ_border_color="@color/colorAccent"
-                        app:civ_border_width="3dp" />
+                        app:civ_border_width="@dimen/details_image_border" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
-                        android:text="Name :"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/name_details_marginright"
+                        android:text="@string/details_name_txt"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
@@ -55,10 +56,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="100dp"
+                        android:layout_marginEnd="@dimen/name_details_marginend"
                         android:fontFamily="@font/slabo"
-                        android:text="Loading..."
-                        android:textColor="#000" />
+                        android:text="@string/loading_desc"
+                        android:textColor="@color/details_textColor" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -74,17 +75,17 @@
                     android:layout_margin="4dp"
                     android:text="Description"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/description_textsize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/description_details_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/details_desc_margin"
                     android:fontFamily="@font/slabo"
-                    android:layout_margin="4dp"
-                    android:text="Loading ...."
-                    android:textColor="#000"
+                    android:text="@string/loading_desc"
+                    android:textColor="@color/details_textColor"
                     android:textSize="14dp" />
             </LinearLayout>
         </LinearLayout>

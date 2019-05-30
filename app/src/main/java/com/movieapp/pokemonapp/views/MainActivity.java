@@ -1,21 +1,21 @@
 package com.movieapp.pokemonapp.views;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
+import android.view.animation.OvershootInterpolator;
 
 import com.movieapp.pokemonapp.R;
 import com.movieapp.pokemonapp.adapter.PokemonAdapter;
 import com.movieapp.pokemonapp.viewmodel.PokemonViewModel;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
 
-    private RecyclerView recyclerView;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,27 +31,19 @@ public class MainActivity extends AppCompatActivity {
      */
     public void populateList() {
 
-        recyclerView = findViewById(R.id.recyclerView);
-        Context context=recyclerView.getContext();
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setHasFixedSize(true);
 
         PokemonViewModel pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
         PokemonAdapter pokemonAdapter = new PokemonAdapter(this);
 
-        pokemonViewModel.resultPagedList.observe(this, results -> {
+        pokemonViewModel.resultPagedList.observe(this, pokemonAdapter::submitList);
 
-            pokemonAdapter.submitList(results);
-
-        });
-
-        LayoutAnimationController controller =
-                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_slide_from_bottom);
-
+        SlideInLeftAnimator animator = new SlideInLeftAnimator(new OvershootInterpolator(1f));
+        recyclerView.setItemAnimator(animator);
+        Objects.requireNonNull(recyclerView.getItemAnimator()).setAddDuration(1200);
         recyclerView.setAdapter(pokemonAdapter);
-        recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
-        recyclerView.scheduleLayoutAnimation();
 
 
     }

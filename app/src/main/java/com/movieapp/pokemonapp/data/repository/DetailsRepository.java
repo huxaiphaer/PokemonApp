@@ -1,6 +1,7 @@
 package com.movieapp.pokemonapp.data.repository;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 
 import com.movieapp.pokemonapp.data.remote.RetrofitClient;
 import com.movieapp.pokemonapp.model.DetailsModal;
@@ -20,7 +21,7 @@ public class DetailsRepository {
                 .getSingelPokemon(id)
                 .enqueue(new Callback<DetailsModal>() {
                     @Override
-                    public void onResponse(Call<DetailsModal> call, Response<DetailsModal> response) {
+                    public void onResponse(@NonNull Call<DetailsModal> call, Response<DetailsModal> response) {
 
 
                         if (response.isSuccessful()) {
@@ -30,7 +31,7 @@ public class DetailsRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<DetailsModal> call, Throwable t) {
+                    public void onFailure(@NonNull Call<DetailsModal> call, Throwable t) {
                         pokemonData.setValue(null);
                     }
                 });
