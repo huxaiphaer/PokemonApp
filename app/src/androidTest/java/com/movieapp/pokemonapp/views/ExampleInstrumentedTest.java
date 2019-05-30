@@ -1,4 +1,4 @@
-package com.movieapp.pokemonapp;
+package com.movieapp.pokemonapp.views;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
