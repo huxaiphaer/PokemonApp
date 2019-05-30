@@ -44,6 +44,7 @@ ext {
     testRunner ="1.0.2"
     espressoCore = "3.0.2"
     circleImageView = "3.0.0"
+    recyclerViewAnimator ="2.3.0"
 
 }
 

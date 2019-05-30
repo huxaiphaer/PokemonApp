@@ -31,7 +31,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
     public static final String POKEMON_ID = "POKEMON_ID";
     public static final String IMAGE_PATH = "IMAGE_PATH";
     public static final String POKEMON_NAME = "POKEMON_NAME";
-    private static DiffUtil.ItemCallback<Result> DIFF_CALLBACK = new DiffUtil.ItemCallback<Result>() {
+    private static DiffUtil.ItemCallback<Result> diffCallback = new DiffUtil.ItemCallback<Result>() {
         @Override
         public boolean areItemsTheSame(@NonNull Result oldResult, @NonNull Result newResult) {
 
@@ -49,7 +49,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
 
 
     public PokemonAdapter(Context context) {
-        super(DIFF_CALLBACK);
+        super(diffCallback);
         this.context = context;
     }
 
@@ -57,7 +57,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
      * This methods creates the viewholder with respect to the item layout.
      * @param viewGroup View Group.
      * @param i Item position.
-     * @return
+     * @return Returns the Holder Object.
      */
     @NonNull
     @Override
@@ -89,13 +89,13 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
 
-                            pokemonHolder.imageLoader_pb.setVisibility(View.GONE);
+                            pokemonHolder.imageLoaderPb.setVisibility(View.GONE);
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            pokemonHolder.imageLoader_pb.setVisibility(View.GONE);
+                            pokemonHolder.imageLoaderPb.setVisibility(View.GONE);
                             return false;
                         }
                     })
@@ -121,20 +121,20 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
         View root;
         ImageView pokemonImg;
         TextView pokemonName;
-        ProgressBar imageLoader_pb;
+        ProgressBar imageLoaderPb;
 
         /**
          * Holder Constructor to initialize the views.
          *
-         * @param itemView
+         * @param itemView This is the itemView.
          */
-        public PokemonHolder(@NonNull View itemView) {
+        PokemonHolder(@NonNull View itemView) {
             super(itemView);
 
             root = itemView;
             pokemonImg = itemView.findViewById(R.id.pokemonImg);
             pokemonName = itemView.findViewById(R.id.pokemonName);
-            imageLoader_pb = itemView.findViewById(R.id.imageLoader_pb);
+            imageLoaderPb = itemView.findViewById(R.id.imageLoader_pb);
         }
     }
 }

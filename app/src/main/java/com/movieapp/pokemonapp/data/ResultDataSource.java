@@ -26,8 +26,8 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
     /***
      * This method ensures that first batch of items to be loaded , if at all you are using
      * a paginated API.
-     * @param params
-     * @param callback
+     * @param params This is the tracker of offset.
+     * @param callback Callback.
      */
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, Result> callback) {
@@ -38,7 +38,7 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
                 .getPokemons(PAGE_LIMIT, OFFSET)
                 .enqueue(new Callback<PokemonApiResponse>() {
                     @Override
-                    public void onResponse(Call<PokemonApiResponse> call, Response<PokemonApiResponse> response) {
+                    public void onResponse(@NonNull Call<PokemonApiResponse> call, Response<PokemonApiResponse> response) {
 
                         if (response.body() != null) {
 
@@ -49,7 +49,7 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
 
                     @Override
                     public void onFailure(Call<PokemonApiResponse> call, Throwable t) {
-
+                        callback.onResult(null,null,null);
                     }
                 });
     }
@@ -57,8 +57,8 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
     /**
      * This method keeps track of the reverse scrolling (list scrolling), since the list
      * gets data from a paginated API.
-     * @param params
-     * @param callback
+     * @param params This is the tracker of offset.
+     * @param callback Callback.
      */
 
     @Override
@@ -81,7 +81,7 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
 
                     @Override
                     public void onFailure(Call<PokemonApiResponse> call, Throwable t) {
-
+                        callback.onResult(null,null);
                     }
                 });
 
@@ -90,8 +90,8 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
     /***
      * This methods keeps on incrementing the offset of the API to
      * ensure that the items keep on loading form a paginated API.
-     * @param params
-     * @param callback
+     * @param params This is the tracker of offset.
+     * @param callback Callback.
      */
 
     @Override
@@ -115,7 +115,7 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
 
                     @Override
                     public void onFailure(Call<PokemonApiResponse> call, Throwable t) {
-
+                        callback.onResult(null,null);
                     }
                 });
 

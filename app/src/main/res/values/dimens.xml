@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_image_width">170dp</dimen>
-    <dimen name="item_image_height">170dp</dimen>
+    <dimen name="item_image_width">100dp</dimen>
+    <dimen name="item_image_height">100dp</dimen>
     <dimen name="card_margin">5dp</dimen>
     <dimen name="card_elevation">10dp</dimen>
     <dimen name="item_card_view_corner_radius">5dp</dimen>
     <dimen name="item_text_view_padding">6dp</dimen>
+    <dimen name="details_image_height">120dp</dimen>
+    <dimen name="details_image_width">120dp</dimen>
+    <dimen name="details_image_border">3dp</dimen>
+    <dimen name="card_view_details_margin">10dp</dimen>
+    <dimen name="card_view_details_padding">6dp</dimen>
+    <dimen name="linearlayout_details_margin">7dp</dimen>
+    <dimen name="name_details_marginright">10dp</dimen>
+    <dimen name="name_details_marginend">100dp</dimen>
+    <dimen name="description_textsize">15dp</dimen>
+    <dimen name="details_desc_margin">4dp</dimen>
+    <dimen name="card_view_details_elevation">6dp</dimen>
     <integer name="animation_dur_medium">600</integer>
 </resources>
