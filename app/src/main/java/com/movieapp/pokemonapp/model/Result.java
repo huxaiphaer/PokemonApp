@@ -19,4 +19,12 @@ public class Result {
         String[] urlPattern = mUrl.split("/");
         return Integer.parseInt(urlPattern[urlPattern.length - 1]);
     }
+
+    public Result(String mName, String mUrl) {
+        this.mName = mName;
+        this.mUrl = mUrl;
+    }
+
+    public Result() {
+    }
 }
