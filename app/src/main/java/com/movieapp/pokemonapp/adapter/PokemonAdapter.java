@@ -2,6 +2,7 @@ package com.movieapp.pokemonapp.adapter;
 
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,9 +24,13 @@ import com.bumptech.glide.request.target.Target;
 import com.movieapp.pokemonapp.R;
 import com.movieapp.pokemonapp.model.Result;
 import com.movieapp.pokemonapp.utils.Utils;
+import com.movieapp.pokemonapp.views.DetailsActivity;
 
 public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.PokemonHolder> {
 
+    public static final String POKEMON_ID = "POKEMON_ID";
+    public static final String IMAGE_PATH = "IMAGE_PATH";
+    public static final String POKEMON_NAME = "POKEMON_NAME";
     private static DiffUtil.ItemCallback<Result> DIFF_CALLBACK = new DiffUtil.ItemCallback<Result>() {
         @Override
         public boolean areItemsTheSame(@NonNull Result oldResult, @NonNull Result newResult) {
@@ -42,6 +47,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
     };
     private Context context;
 
+
     public PokemonAdapter(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
@@ -49,8 +55,8 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
 
     /***
      * This methods creates the viewholder with respect to the item layout.
-     * @param viewGroup
-     * @param i
+     * @param viewGroup View Group.
+     * @param i Item position.
      * @return
      */
     @NonNull
@@ -65,7 +71,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
      * This is where the binding of the views occurs.
      *
      * @param pokemonHolder This allows to access views in the holder class.
-     * @param i This is the item position
+     * @param i             This is the item position
      */
     @Override
     public void onBindViewHolder(@NonNull PokemonHolder pokemonHolder, int i) {
@@ -75,9 +81,10 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
         if (result != null) {
             final String pokemonName = result.mName;
             pokemonHolder.pokemonName.setText(pokemonName);
+            final String RANDOM_IMAGE = Utils.IMAGE_BASE_URL.concat(result.getId() + ".png");
 
             Glide.with(PokemonAdapter.this.context)
-                    .load(Utils.IMAGE_BASE_URL.concat(result.getId() + ".png"))
+                    .load(RANDOM_IMAGE)
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -93,6 +100,15 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
                         }
                     })
                     .into(pokemonHolder.pokemonImg);
+
+            pokemonHolder.itemView.setOnClickListener(v -> {
+
+                Intent intent = new Intent(PokemonAdapter.this.context, DetailsActivity.class);
+                intent.putExtra(POKEMON_ID, String.valueOf(result.getId()));
+                intent.putExtra(IMAGE_PATH, RANDOM_IMAGE);
+                intent.putExtra(POKEMON_NAME, pokemonName);
+                context.startActivity(intent);
+            });
 
         } else {
             Toast.makeText(PokemonAdapter.this.context, "Check your internet connection", Toast.LENGTH_LONG).show();

@@ -20,7 +20,7 @@ public class ResultDataSource extends PageKeyedDataSource<Integer, Result> {
 
 
     public static final int PAGE_LIMIT = 10;
-    private static final int OFFSET = 10;
+    private static final int OFFSET = 0;
 
 
     /***
