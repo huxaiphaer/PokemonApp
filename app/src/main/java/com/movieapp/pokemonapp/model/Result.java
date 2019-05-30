@@ -11,6 +11,7 @@ public class Result {
 
     /**
      * This method helps to get the ID of each pokemon.
+     *
      * @return
      */
     public int getId() {

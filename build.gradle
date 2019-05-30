@@ -43,6 +43,7 @@ ext {
     mockitoLibrary ="2.7.22"
     testRunner ="1.0.2"
     espressoCore = "3.0.2"
+    circleImageView = "3.0.0"
 
 }
 
