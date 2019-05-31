@@ -1,94 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.DetailsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.CardView
+    <data>
+
+        <import type="android.databinding.DataBindingUtil" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/card_view_details_margin"
-        android:padding="@dimen/card_view_details_padding"
-        app:cardCornerRadius="@dimen/item_card_view_corner_radius"
-        app:cardElevation="@dimen/card_view_details_elevation">
+        android:layout_height="match_parent"
+        tools:context=".views.DetailsActivity">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/linearlayout_details_margin"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/card_view_details_margin"
+            android:padding="@dimen/card_view_details_padding"
+            app:cardCornerRadius="@dimen/item_card_view_corner_radius"
+            app:cardElevation="@dimen/card_view_details_elevation">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_margin="@dimen/linearlayout_details_margin"
+                android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/details_img"
-                        android:layout_width="@dimen/details_image_height"
-                        android:layout_height="@dimen/details_image_width"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_gravity="center"
-                        app:civ_border_color="@color/colorAccent"
-                        app:civ_border_width="@dimen/details_image_border" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/details_img"
+                            android:layout_width="@dimen/details_image_height"
+                            android:layout_height="@dimen/details_image_width"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center"
+                            app:civ_border_color="@color/colorAccent"
+                            app:civ_border_width="@dimen/details_image_border" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/name_details_marginright"
+                            android:text="@string/details_name_txt"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/name_details_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/name_details_marginend"
+                            android:fontFamily="@font/slabo"
+                            android:text="@string/loading_desc"
+                            android:textColor="@color/details_textColor" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/name_details_marginright"
-                        android:text="@string/details_name_txt"
+                        android:layout_margin="4dp"
+                        android:text="Description"
                         android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/description_textsize"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/name_details_txt"
+                        android:id="@+id/description_details_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/name_details_marginend"
+                        android:layout_margin="@dimen/details_desc_margin"
                         android:fontFamily="@font/slabo"
                         android:text="@string/loading_desc"
-                        android:textColor="@color/details_textColor" />
-                </RelativeLayout>
+                        android:textColor="@color/details_textColor"
+                        android:textSize="14dp" />
+                </LinearLayout>
             </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:text="Description"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/description_textsize"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/description_details_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/details_desc_margin"
-                    android:fontFamily="@font/slabo"
-                    android:text="@string/loading_desc"
-                    android:textColor="@color/details_textColor"
-                    android:textSize="14dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+    </LinearLayout>
+</layout>

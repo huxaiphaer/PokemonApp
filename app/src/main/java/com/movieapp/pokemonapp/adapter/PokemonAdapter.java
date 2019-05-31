@@ -3,6 +3,7 @@ package com.movieapp.pokemonapp.adapter;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +20,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.movieapp.pokemonapp.R;
+import com.movieapp.pokemonapp.databinding.ItemPokemonBinding;
 import com.movieapp.pokemonapp.model.Result;
 import com.movieapp.pokemonapp.utils.Utils;
 import com.movieapp.pokemonapp.views.DetailsActivity;
@@ -46,6 +45,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
         }
     };
     private Context context;
+    private LayoutInflater layoutInflater;
 
 
     public PokemonAdapter(Context context) {
@@ -63,8 +63,13 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
     @Override
     public PokemonHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View layoutView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_pokemon, viewGroup, false);
-        return new PokemonHolder(layoutView);
+        if (layoutInflater == null) {
+            layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        }
+        ItemPokemonBinding binding =
+                DataBindingUtil.inflate(layoutInflater, R.layout.item_pokemon, viewGroup, false);
+
+        return new PokemonHolder(binding);
     }
 
     /**
@@ -80,7 +85,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
 
         if (result != null) {
             final String pokemonName = result.mName;
-            pokemonHolder.pokemonName.setText(pokemonName);
+            pokemonHolder.binding.pokemonName.setText(pokemonName);
             final String RANDOM_IMAGE = Utils.IMAGE_BASE_URL.concat(result.getId() + ".png");
 
             Glide.with(PokemonAdapter.this.context)
@@ -89,17 +94,17 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
 
-                            pokemonHolder.imageLoaderPb.setVisibility(View.GONE);
+                            pokemonHolder.binding.imageLoaderPb.setVisibility(View.GONE);
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            pokemonHolder.imageLoaderPb.setVisibility(View.GONE);
+                            pokemonHolder.binding.imageLoaderPb.setVisibility(View.GONE);
                             return false;
                         }
                     })
-                    .into(pokemonHolder.pokemonImg);
+                    .into(pokemonHolder.binding.pokemonImg);
 
             pokemonHolder.itemView.setOnClickListener(v -> {
 
@@ -119,22 +124,16 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
     class PokemonHolder extends RecyclerView.ViewHolder {
 
         View root;
-        ImageView pokemonImg;
-        TextView pokemonName;
-        ProgressBar imageLoaderPb;
+        ItemPokemonBinding binding;
 
         /**
-         * Holder Constructor to initialize the views.
+         * This initializes our views.
          *
-         * @param itemView This is the itemView.
+         * @param binding ensures binding.
          */
-        PokemonHolder(@NonNull View itemView) {
-            super(itemView);
-
-            root = itemView;
-            pokemonImg = itemView.findViewById(R.id.pokemonImg);
-            pokemonName = itemView.findViewById(R.id.pokemonName);
-            imageLoaderPb = itemView.findViewById(R.id.imageLoader_pb);
+        PokemonHolder(final ItemPokemonBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

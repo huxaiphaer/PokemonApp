@@ -2,6 +2,7 @@ package com.movieapp.pokemonapp.views;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.movieapp.pokemonapp.R;
+import com.movieapp.pokemonapp.databinding.ActivityDetailsBinding;
 import com.movieapp.pokemonapp.model.DetailsModal;
 import com.movieapp.pokemonapp.viewmodel.DetailViewModal;
 
@@ -21,11 +23,13 @@ public class DetailsActivity extends AppCompatActivity {
 
     DetailViewModal detailViewModal;
     Intent intent;
+    private ActivityDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -79,9 +83,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         String effect = detailsModal.mEffectEntries.get(0).mEffect.toString();
 
-        ImageView details_img = findViewById(R.id.details_img);
-        TextView description_details_txt = findViewById(R.id.description_details_txt);
-        TextView name_details_txt = findViewById(R.id.name_details_txt);
+        ImageView details_img = binding.detailsImg;
+        TextView description_details_txt = binding.descriptionDetailsTxt;
+        TextView name_details_txt = binding.nameDetailsTxt;
 
 
         Glide.with(DetailsActivity.this)
