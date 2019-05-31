@@ -1,6 +1,7 @@
 package com.movieapp.pokemonapp.views;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.movieapp.pokemonapp.R;
 import com.movieapp.pokemonapp.adapter.PokemonAdapter;
+import com.movieapp.pokemonapp.databinding.ActivityMainBinding;
 import com.movieapp.pokemonapp.utils.NetworkUtility;
 import com.movieapp.pokemonapp.viewmodel.PokemonViewModel;
 
@@ -19,10 +21,12 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
         populateList();
     }
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         NetworkUtility networkUtility = new NetworkUtility(this);
         if (networkUtility.isOnline()) {
-            RecyclerView recyclerView = findViewById(R.id.recyclerView);
+            RecyclerView recyclerView = binding.recyclerView;
             recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
             recyclerView.setHasFixedSize(true);
 

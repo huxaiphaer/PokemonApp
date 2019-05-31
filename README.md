@@ -50,8 +50,9 @@ To be able to view the coverage report, navigate to `app/build/reports/coverage/
 * Paging Library.
 * Recyclerview Animations.
 * Travis (CI)
-* Codecov. (For the test coverage)
-* TDD (Test Driven Development)
+* Codecov. (For the test coverage).
+* Android Data & View Binding.
+* TDD (Test Driven Development).
 * Xml.
 
 ### Author.
