@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/huxaiphaer/PokemonApp.svg?branch=develop)](https://travis-ci.org/huxaiphaer/PokemonApp)
 [![codecov](https://codecov.io/gh/huxaiphaer/PokemonApp/branch/develop/graph/badge.svg)](https://codecov.io/gh/huxaiphaer/PokemonApp)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8889b65c53bccc8236fd/maintainability)](https://codeclimate.com/github/huxaiphaer/PokemonApp/maintainability)
 
 # PokemonApp
 
@@ -53,6 +54,7 @@ To be able to view the coverage report, navigate to `app/build/reports/coverage/
 * Codecov. (For the test coverage).
 * Android Data & View Binding.
 * TDD (Test Driven Development).
+* Code Climate.
 * Xml.
 
 ### Author.
