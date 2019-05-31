@@ -123,7 +123,6 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
 
     class PokemonHolder extends RecyclerView.ViewHolder {
 
-        View root;
         ItemPokemonBinding binding;
 
         /**
