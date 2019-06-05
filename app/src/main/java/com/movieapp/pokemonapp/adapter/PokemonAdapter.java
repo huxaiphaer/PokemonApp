@@ -1,5 +1,6 @@
 package com.movieapp.pokemonapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,7 @@ public class PokemonAdapter extends PagedListAdapter<Result, PokemonAdapter.Poke
             return Integer.parseInt(oldUrlPattern[oldUrlPattern.length - 1]) == Integer.parseInt(newUrlPatter[newUrlPatter.length - 1]);
         }
 
+        @SuppressLint("DiffUtilEquals")
         @Override
         public boolean areContentsTheSame(@NonNull Result oldResult, @NonNull Result newResult) {
             return oldResult.equals(newResult);
